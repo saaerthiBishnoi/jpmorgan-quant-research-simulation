@@ -40,3 +40,34 @@ Prototype models built as part of JPMorgan Chase's Quantitative Research virtual
 **Approach:** Trained a logistic regression classifier on borrower features (credit lines outstanding, loan amount, total debt, income, years employed, FICO score) to predict probability of default. Combined this with the standard credit risk formula to compute expected loss.
 
 **Deliverable:** `expected_loss(...)` — returns the expected monetary loss on a loan, using:
+
+Achieved AUC ≈ 1.0 and accuracy ≈ 99.9% on held-out test data (synthetic dataset with strong signal).
+
+---
+
+## Task 4: FICO Score Bucketing (Quantization)
+
+**Business context:** A downstream machine learning model requires categorical inputs, but FICO scores are continuous (300–850). The team needs a principled way to convert scores into discrete rating buckets, rather than arbitrary equal-width bins.
+
+**Approach:** Implemented optimal quantization using dynamic programming to maximize a log-likelihood objective — choosing bucket boundaries that create the most distinct default rates between buckets, rather than just grouping similar score values together.
+
+**Deliverable:** `fico_to_rating(fico_score)` — maps any FICO score to a rating from 1 (best credit) to N (worst credit).
+
+Validated results show a clear, monotonic default rate separation across buckets — e.g., ~66% default rate in the lowest-scoring bucket down to ~4.6% in the highest-scoring bucket.
+
+---
+
+## Tech Stack
+
+- Python (pandas, numpy, scikit-learn, matplotlib)
+- Logistic regression
+- Dynamic programming
+- Time series trend/seasonality decomposition
+
+## Data
+
+All datasets provided as part of the Forage JPMorgan Quantitative Research simulation (synthetic data for educational purposes).
+
+## Disclaimer
+
+This repository contains work completed as part of Forage's JPMorgan Chase & Co. Quantitative Research virtual job simulation program. All models are prototypes built for educational purposes and are not used in any production trading or risk system.
